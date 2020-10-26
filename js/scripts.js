@@ -5,11 +5,11 @@ $('document').ready(function () {
     ];
 
     const note_diesis = [
-        'C#', 'D#', 'F#', 'G#', 'A#'
+        'C\u266F', 'D\u266F', 'F\u266F', 'G\u266F', 'A\u266F'
     ];
 
     const note_bemolle = [
-        'Db', 'Eb', 'Gb', 'Ab', 'Bb'
+        'D\u266D', 'E\u266D', 'G\u266D', 'A\u266D', 'B\u266D'
     ];
 
     let i = 0;
@@ -19,10 +19,12 @@ $('document').ready(function () {
 
         const bpm = $('#bpm')[0].value;
         const ripetizione = $('#ripetizione')[0].value;
+        const difficolta = $("input[name='difficolta']:checked").val();
         console.log('start metronomo', bpm);
+        console.log('difficoltà', difficolta);
 
         metronomo = setInterval(() => {
-            executeBeat(ripetizione);
+            executeBeat(ripetizione, difficolta);
         }, 60 / bpm * 1000);
 
         $('.start-metronomo').attr('disabled', 'disabled');
@@ -40,7 +42,7 @@ $('document').ready(function () {
         i = 0;
     });
 
-    function executeBeat(ripetizione) {
+    function executeBeat(ripetizione, difficolta) {
 
         const beat = i % ripetizione;
         const audio = new Audio('resources/MetroBeat1.wav');
@@ -50,15 +52,39 @@ $('document').ready(function () {
        
         if (beat === 0 || i === 0) {
             console.log('prossima nota');
-            let randomNota = getRandomNota();
+            let randomNota = getRandomNota(difficolta);
             $('#nota').text(randomNota);
         }
 
         i++;
     }
 
-    function getRandomNota(){
-        const note_array = note_naturali.concat(note_diesis).concat(note_bemolle);
+    function getRandomNota(difficolta){
+
+        let note_array = [];
+
+        if(difficolta){
+            switch(difficolta){
+                case 'naturali':
+                    note_array = note_naturali;
+                    break;
+                case 'diesis':
+                    note_array = note_naturali.concat(note_diesis);
+                    break;
+                case 'bemolle':
+                    note_array = note_naturali.concat(note_bemolle);
+                    break;
+                case 'tutte':
+                    note_array = note_naturali.concat(note_diesis).concat(note_bemolle);
+                    break;
+                default:
+                    note_array = note_naturali.concat(note_diesis).concat(note_bemolle);
+                    break;
+            }
+        } else {
+            note_array = note_naturali.concat(note_diesis).concat(note_bemolle);
+        }
+
         let rnd = Math.random()*note_array.length;
         let rnd_round = Math.round(rnd);
 
