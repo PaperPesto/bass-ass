@@ -33,6 +33,7 @@ $('document').ready(function () {
     $('.stop-metronomo').click(() => {
         clearInterval(metronomo);
 
+        $('#counter').text('');
         $('.stop-metronomo').attr('disabled', 'disabled');
         $('.start-metronomo').removeAttr('disabled');
 
@@ -40,10 +41,14 @@ $('document').ready(function () {
     });
 
     function executeBeat(ripetizione) {
+
+        const beat = i % ripetizione;
         const audio = new Audio('resources/MetroBeat1.wav');
+
         audio.play();
+        $('#counter').text(beat+1);
        
-        if (i % ripetizione === 0 || i === 0) {
+        if (beat === 0 || i === 0) {
             console.log('prossima nota');
             let randomNota = getRandomNota();
             $('#nota').text(randomNota);
