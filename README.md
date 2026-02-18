@@ -8,7 +8,7 @@ Bass Ass è uno strumento di pratica per bassisti che aiuta a migliorare la tecn
 
 ## ✨ Funzionalità
 
-- **Metronomo regolabile**: Imposta i BPM (battiti per minuto) da 1 a infinito
+- **Metronomo regolabile**: Imposta i BPM (battiti per minuto) a qualsiasi velocità desiderata
 - **Ciclo personalizzabile**: Definisci quanti battiti prima di cambiare nota
 - **Livelli di difficoltà**:
   - **Naturali**: Solo note naturali (C, D, E, F, G, A, B)
